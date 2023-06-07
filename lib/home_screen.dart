@@ -1,6 +1,11 @@
+// NAME: Ieskandar Zulqarnain Bin Ghazali
+// MATRIC NO: A20EC0046
+// COURSE: SECJ3623-01(MOBILE APPLICATION PROGRAMMING)
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:map_exam/Profile.dart';
 import 'package:map_exam/addnotes.dart';
 import 'package:map_exam/edit_screen.dart';
 import 'package:map_exam/note.dart';
@@ -126,6 +131,13 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  void Profile() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ProfilePage()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -143,6 +155,15 @@ class _HomeScreenState extends State<HomeScreen> {
               style:
                   const TextStyle(fontWeight: FontWeight.bold, fontSize: 22.0),
             ),
+          ),
+          IconButton(
+            icon: const Icon(
+              Icons.person,
+              size: 30,
+            ),
+            onPressed: () {
+              Profile();
+            },
           ),
           const SizedBox(width: 10),
         ],

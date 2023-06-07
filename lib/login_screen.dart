@@ -4,7 +4,10 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:map_exam/components/my_button.dart';
+import 'package:map_exam/components/my_textfield.dart';
 import 'package:map_exam/home_screen.dart';
+import 'package:map_exam/sign_up.dart';
 
 class LoginScreen extends StatefulWidget {
   static Route route() =>
@@ -51,6 +54,13 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
+  void signUp() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => SignUpPage()),
+    ); // Navigate to sign-up page
+  }
+
   @override
   void dispose() {
     _usernameController.dispose();
@@ -61,34 +71,67 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(28.0),
-        child: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text('Please sign in', style: TextStyle(fontSize: 35.0)),
-              const SizedBox(height: 20),
-              TextField(
-                controller: _usernameController,
-                decoration:
-                    const InputDecoration(hintText: 'Type your email here'),
-                onTap: () {},
-              ),
-              TextField(
-                controller: _passwordController,
-                decoration: const InputDecoration(
-                  hintText: 'Type your password',
+      body: SingleChildScrollView(
+        // Wrap the content with SingleChildScrollView
+        child: Padding(
+          padding: const EdgeInsets.all(28.0),
+          child: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SizedBox(height: 150),
+                Text(
+                  'My Notes',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 48,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Poppins', // Set the font family
+                  ),
                 ),
-                onTap: () {},
-              ),
-              const SizedBox(height: 10.0),
-              ElevatedButton(
-                child: const Text('Sign in'),
-                onPressed: signIn,
-              ),
-            ],
+                const SizedBox(height: 20),
+                MyTextField(
+                  controller: _usernameController,
+                  hintText: 'Enter Your Email',
+                  obscureText: false,
+                ),
+                const SizedBox(height: 20),
+                MyTextField(
+                  controller: _passwordController,
+                  hintText: 'Enter Your Password',
+                  obscureText: true,
+                ),
+                const SizedBox(height: 30.0),
+                MyButton(
+                  text: 'Sign In',
+                  onTap: signIn,
+                ),
+                const SizedBox(height: 25),
+
+                // not a member? register now
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Not a member?',
+                      style: TextStyle(color: Colors.grey[700]),
+                    ),
+                    const SizedBox(width: 4),
+                    GestureDetector(
+                      onTap: () => signUp(),
+                      child: Text(
+                        'Register now',
+                        style: TextStyle(
+                          color: Colors.blue,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),
