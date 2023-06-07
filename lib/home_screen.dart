@@ -1,7 +1,3 @@
-// NAME: Ieskandar Zulqarnain Bin Ghazali
-// MATRIC NO: A20EC0046
-// COURSE: SECJ3623-01(MOBILE APPLICATION PROGRAMMING)
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -155,35 +151,44 @@ class _HomeScreenState extends State<HomeScreen> {
         itemCount: notes.length,
         itemBuilder: (context, index) {
           final note = notes[index];
-          return ListTile(
-            trailing: SizedBox(
-              width: 110.0,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  if (selectedNoteIndex == index && editingToolsVisible)
-                    IconButton(
-                      icon: const Icon(Icons.edit, color: Colors.blue),
-                      onPressed: () => editNote(note),
-                    ),
-                  if (selectedNoteIndex == index && editingToolsVisible)
-                    IconButton(
-                      icon: const Icon(
-                        Icons.delete,
-                        color: Colors.blue,
-                      ),
-                      onPressed: () => deleteNote(note),
-                    ),
-                ],
+          return Column(
+            children: [
+              ListTile(
+                trailing: SizedBox(
+                  width: 110.0,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      if (selectedNoteIndex == index && editingToolsVisible)
+                        IconButton(
+                          icon: const Icon(Icons.edit, color: Colors.blue),
+                          onPressed: () => editNote(note),
+                        ),
+                      if (selectedNoteIndex == index && editingToolsVisible)
+                        IconButton(
+                          icon: const Icon(
+                            Icons.delete,
+                            color: Colors.blue,
+                          ),
+                          onPressed: () => deleteNote(note),
+                        ),
+                    ],
+                  ),
+                ),
+                title: GestureDetector(
+                  child: Text(note.title ?? ''),
+                  onLongPress: () => toggleEditingTools(index),
+                ),
+                subtitle: showLess ? null : Text(note.content ?? ''),
+                onTap: () => viewNote(note),
+                onLongPress: () => toggleEditingTools(index),
               ),
-            ),
-            title: GestureDetector(
-              child: Text(note.title ?? ''),
-              onLongPress: () => toggleEditingTools(index),
-            ),
-            subtitle: showLess ? null : Text(note.content ?? ''),
-            onTap: () => viewNote(note),
-            onLongPress: () => toggleEditingTools(index),
+              const Divider(
+                color: Colors.grey,
+                height: 15.0,
+                thickness: 1.5,
+              ),
+            ],
           );
         },
       ),
